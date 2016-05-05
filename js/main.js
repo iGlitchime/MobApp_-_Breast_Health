@@ -158,7 +158,6 @@ function ready() {
     new Tap("SettingsToFirst").addEventListener('tap', function (e) {
         e.preventDefault(); //запрещает активность клика сразу на два элемента, находящиеся друг на друге (слои)
         e.stopPropagation(); //запрещает всплытие
-        //console.log("open Settings?");
         snd_list_page.play();
         page.open("first");  // вешаем переход на страницу выбора занятия
     }, false);
@@ -174,22 +173,12 @@ function ready() {
         e.preventDefault(); //запрещает активность клика сразу на два элемента, находящиеся друг на друге (слои)
         e.stopPropagation(); //запрещает всплытие
         if (countAnswers == 0) {
-            console.log(countAnswers);
             localStorage.setItem('testResult', JSON.stringify(testPage.sumAllAnswers));
             testPage.drawTestBlock();
             snd_list_page.play();
-
             page.open("second");
         } else {
-            if ($confirm(words.other[lang][18])) {
-
-                countAnswers = 0;
-                testPage.sumAllAnswers = 0;
-                localStorage.setItem('testResult', JSON.stringify(testPage.sumAllAnswers));
-                console.log(countAnswers);
-                testPage.drawTestBlock();
-                page.open("second");
-            }
+            ConfirmBlock.ConfirmTestOn(); //вызываем окно с вопросом "сбросить?"
         }
     }, false);
 
@@ -217,17 +206,23 @@ function ready() {
     new Tap("addNote").addEventListener('tap', function (e) {
         e.preventDefault(); //запрещает активность клика сразу на два элемента, находящиеся друг на друге (слои)
         e.stopPropagation(); //запрещает всплытие
-        //console.log("open Test");
         snd_list_page.play();
         page.open("third");  // вешаем переход на страницу выбора занятия
     }, false);
+
+    new Tap("AddCircle").addEventListener('tap', function (e) {
+        e.preventDefault(); //запрещает активность клика сразу на два элемента, находящиеся друг на друге (слои)
+        e.stopPropagation(); //запрещает всплытие
+        snd_list_page.play();
+        page.open("third");  // вешаем переход на страницу выбора занятия
+    }, false);
+
 
     //раскомментировать как отрисовка будет готова
 
     new Tap("allNotes").addEventListener('tap', function (e) {
         e.preventDefault(); //запрещает активность клика сразу на два элемента, находящиеся друг на друге (слои)
         e.stopPropagation(); //запрещает всплытие
-        console.log("open Fourth");
         snd_list_page.play();
         DrawDay.parseLocStor();
         page.open("fourth");  // вешаем переход на страницу выбора занятия
@@ -240,7 +235,6 @@ function ready() {
         if (e.detail.cTarget.id == "choose_date" || e.detail.cTarget.id == "choose_time") {
             e.preventDefault(); //запрещает активность клика сразу на два элемента, находящиеся друг на друге (слои)
             e.stopPropagation(); //запрещает всплытие
-            //console.log("open barrel_date");
             snd_list_page.play();
             document.getElementById('barrel_date').style.position = "relative";
             document.getElementById('barrel_date').style.top = "0";
@@ -248,7 +242,6 @@ function ready() {
         } else if (e.detail.cTarget.classList.contains("inputLine")) {
             document.getElementById('barrel_date').style.position = "absolute";
             document.getElementById('barrel_date').style.top = "200em";
-            //console.log("close barrel_date");
         }
     }, false);
 
@@ -266,36 +259,40 @@ function ready() {
         }
     }, false);
 
+    new Tap("BackFromNote").addEventListener('tap', function (e) {
+        e.preventDefault(); //запрещает активность клика сразу на два элемента, находящиеся друг на друге (слои)
+        e.stopPropagation(); //запрещает всплытие
+        page.open("first");
+    }, false);
+
     new Tap("doneNote").addEventListener('tap', function (e) {
         e.preventDefault(); //запрещает активность клика сразу на два элемента, находящиеся друг на друге (слои)
         e.stopPropagation(); //запрещает всплытие
-        if ($confirm(words.other[lang][19])) {
-            revise.review();
-        } else {
-            page.open("first");
-        }
+        revise.review();
     }, false);
 
     new Tap("endTest").addEventListener('tap', function (e) {
         e.preventDefault(); //запрещает активность клика сразу на два элемента, находящиеся друг на друге (слои)
         e.stopPropagation(); //запрещает всплытие
         // вешаем переход на страницу выбора занятия
-        if ($confirm("сбрасываем тест?")) {
-            countAnswers = 0;
-            testPage.sumAllAnswers = 0;
-            document.getElementById("StartButtonText").innerHTML = words.other[lang][2];
-            document.getElementById("StartButtonText").style.backgroundImage = "none";
-            document.getElementById("ProgressBarContainer").style.display = "none";
-            document.getElementById("ProgressBarTxt").style.display = "none";
-            document.getElementById("AppLogo").style.display = "block";
-            document.getElementById("commentText").style.display = "block";
-            document.getElementById("result").style.display = "none";
-            page.open("first");
 
-        } else {
-            console.log("закрываем алерт");
-        }
+        ConfirmBlock.ConfirmTestOn(); //вызываем окно с вопросом "сбросить?"
     }, false);
+
+    new Tap("ConfirmYes").addEventListener('tap', function (e) {
+        e.preventDefault(); //запрещает активность клика сразу на два элемента, находящиеся друг на друге (слои)
+        e.stopPropagation(); //запрещает всплытие
+        snd_list_page.play();
+        ConfirmBlock.ConfirmClearTest();
+    }, false);
+
+    new Tap("ConfirmNo").addEventListener('tap', function (e) {
+        e.preventDefault(); //запрещает активность клика сразу на два элемента, находящиеся друг на друге (слои)
+        e.stopPropagation(); //запрещает всплытие
+        snd_list_page.play();
+        ConfirmBlock.ConfirmTestOff();
+    }, false);
+
 
     new Tap("alertYes").addEventListener('tap', function (e) {
         e.preventDefault(); //запрещает активность клика сразу на два элемента, находящиеся друг на друге (слои)
@@ -304,24 +301,27 @@ function ready() {
         document.getElementById('alertActivity').style.display = "none";
     }, false);
 
+
     var swipeElement = new Tap("DayTask", "ButtonNote");
     swipeElement.addEventListener('tap', function (e) {
+        if(e.target === e.currentTarget)
+            return false;
         e.preventDefault(); //запрещает активность клика сразу на два элемента, находящиеся друг на друге (слои)
         e.stopPropagation(); //запрещает всплытие
         var id = e.detail.cTarget.getElementsByClassName("editButton")[0].dataset.edit;
 
         if (e.target.className == 'delCross') {
-            console.log("delete" + id);
             document.getElementById("id_" + id).style.height = "0";
+            document.getElementById("id_" + id).style.border = "none";
             document.getElementById("id_" + id).innerHTML = "";
             DrawDay.DeleteNote(id);
         } else if (e.target.className == 'editButton') {
-            console.log("edit" + id);
+            console.log("edit " + id);
             DrawDay.editNote(id);
             page.open("fifth");
         } else {
             //вешаем действие: передача ключа для парсинга из локстора
-            console.log("open" + id);
+            console.log("open " + id);
             DrawDay.editNote(id);
             page.open("fifth");
         }
@@ -330,6 +330,9 @@ function ready() {
     swipeElement.addEventListener('swipe', function (e) {
         e.preventDefault(); //запрещает активность клика сразу на два элемента, находящиеся друг на друге (слои)
         e.stopPropagation(); //запрещает всплытие
+        if(e.target === e.currentTarget)
+            return false;
+
         if (e.detail.direction == "left") {
             e.detail.cTarget.classList.add("swipeLeft");
         } else if (e.detail.direction == "right") {
@@ -337,16 +340,19 @@ function ready() {
         }
     });
 
-    new Tap("editSave").addEventListener('tap', function (e) {
+
+
+    new Tap("editBack").addEventListener('tap', function (e) {
         e.preventDefault(); //запрещает активность клика сразу на два элемента, находящиеся друг на друге (слои)
         e.stopPropagation(); //запрещает всплытие
-        if ($confirm("ask for save")) {
-            revise.reviewEdit(IdEditNote);
-        } else {
-            page.open("fourth");
-        }
+        page.open("fourth");
     }, false);
 
+    new Tap("editDone").addEventListener('tap', function (e) {
+        e.preventDefault(); //запрещает активность клика сразу на два элемента, находящиеся друг на друге (слои)
+        e.stopPropagation(); //запрещает всплытие
+        revise.reviewEdit(IdEditNote);
+    }, false);
 
     /* --------------------- END Taps---------------------  */
 
@@ -394,22 +400,16 @@ var page = {
             return false;
         } else if (this.busy) { //иначе - если анимация идет (проверка), то ничего не делать
             this.busy = false;
-            //document.getElementById(this.curTap).classList.remove('active'); //снимаем класс ACTIVE с предыдущей активной вкладки (с которой переходим)
             switch (id) {
                 case 'first':
-                    //console.log("1");
                     break;
                 case 'second':
-                    //console.log("2");
                     break;
                 case 'third':
-                    //console.log("3");
                     break;
                 case 'fourth':
-                    //console.log("4");
                     break;
                 case 'fifth':
-                    //console.log("5");
                     break;
             }
             //проверка на существования предыдущей страницы
@@ -440,8 +440,12 @@ var revise = {
         var reminder = swiper.slides[swiper.activeIndex].innerText;
         var comment = document.getElementById("input_comment").value; // Комментарии
 
-        if (date != 0 && date != "" && date != "&nbsp;" && adress != 0 && adress != "" && adress != "&nbsp;" && room != 0 && room != "" && room != "&nbsp;" && doctor != 0 && doctor != "" && doctor != "&nbsp;" && reminder != 0 && reminder != "" && reminder != "&nbsp;" && comment != 0 && comment != "" && comment != "&nbsp;") {
-            getNotesFromUser.save(adress, room, doctor, reminder, comment);
+        if (date != 0 && date != "" && date != "&nbsp;" && adress != 0 && adress != "" && adress != "&nbsp;" && room != 0 && room != "" && room != "&nbsp;" && doctor != 0 && doctor != "" && doctor != "&nbsp;" && reminder != 0 && reminder != "" && reminder != "&nbsp;") {
+            if(comment != 0 && comment != "" && comment != "&nbsp;") {
+                getNotesFromUser.save(adress, room, doctor, reminder, comment);
+            } else {
+                getNotesFromUser.save(adress, room, doctor, reminder, "");
+            }
         } else {
             document.getElementById('alertMessage').innerHTML = words.other[lang][20];
             document.getElementById('alertActivity').style.display = "block";
@@ -455,10 +459,9 @@ var revise = {
             AllNotes[IdEditNote].comment = comment;
             localStorage.setItem("notes", JSON.stringify(AllNotes));
         } else if (AllNotes[IdEditNote].comment == comment) {
-            page.open("first");
+            page.open("fourth");
         }
         snd_list_page.play();
-        page.open("first");
     }
 }
 /* --------------------- END pages navigation--------------------- */
@@ -480,17 +483,9 @@ var getNotesFromUser = {
         }
     },
     save: function (adress, room, doctor, reminder, comment) {
-
         var remTime = remindTimeConverter(reminder);
-
         var GetDate = new Date(datePicker.getDate().text).getTime();
-        console.log(GetDate);
-
-
         var K = new Date(GetDate).getTime() - remTime; //берем дату, введенную пользователем и переводим в милисекунды с 1 янв 1970г и отнимаем время, для "заранее" напоминашки
-
-
-        console.log(GetDate + " / " + K + " / " + adress + " / " + room + " / " + doctor + " / " + reminder + " / " + comment);
         if (new Date().getTime() <= K) {
             var T = JSON.parse(localStorage.getItem("notes"));
             var O = {
@@ -503,7 +498,7 @@ var getNotesFromUser = {
                 comment: comment
             };
             if (searchInLSarray(K)) {
-                document.getElementById('alertMessage').innerHTML = "You’ve already have a note for this period of time!";
+                document.getElementById('alertMessage').innerHTML = words.other[lang][22];
                 document.getElementById('alertActivity').style.display = "block";
                 return;
 
@@ -515,11 +510,20 @@ var getNotesFromUser = {
                 }
                 localStorage.setItem("notes", JSON.stringify(T))
                 snd_list_page.play();
+
+                document.getElementById('input_date').innerHTML = "&nbsp";
+                document.getElementById("input_adress").value = "";
+                document.getElementById("input_cabinet").value = ""; // кабинет
+                document.getElementById("input_doctor").value = ""; // врач
+                swiper.slides[swiper.activeIndex].innerText = words.swiperwords[lang][0];
+                document.getElementById("input_comment").value = "";
+
                 page.open("first");
+
 //
             }
         } else {
-            document.getElementById('alertMessage').innerHTML = "You can’t make a note for the past period of time";
+            document.getElementById('alertMessage').innerHTML = words.other[lang][23];
             document.getElementById('alertActivity').style.display = "block";
         }
     }
@@ -550,6 +554,7 @@ var DrawDay = {
     },
     parseLocStor: function () {
         var AllNotes = JSON.parse(localStorage.getItem("notes")); //парсим ЛокСтор пакет со всеми записями
+        var PageContent = document.getElementById('PageContent');
         var DayTask = document.getElementById('DayTask');
         var ActualNotes = "";
         if (AllNotes.length != 0) {
@@ -568,34 +573,35 @@ var DrawDay = {
                 }
             }
             localStorage.setItem("notes", JSON.stringify(AllNotes));
+
+            document.getElementById("NoNotes").style.display = "none";
+            document.getElementById("AddCircle").style.display = "none";
         } else {
-            //var NoNotes = document.createElement('div');
-            ActualNotes = '<div id="NoNotes">' + words.other[lang][20] + '</div>';
-            console.log(ActualNotes);
-            //document.getElementById("NoNotes").innerHTML
+            document.getElementById("NoNotes").style.display = "block";
+            document.getElementById("AddCircle").style.display = "block";
         }
         DayTask.innerHTML = ActualNotes;
+
+
     },
     // отрисовка элемента DOM
     DrawNotes: function (N, ShowData, Adress, Doctor, Comment, notifTime) {
         var listItem = document.createElement('div'); //создаем элемент-div (сохраняя в переменную, чтоб удобно обращаться)
         var idItem = "id_" + notifTime;
-        listItem.id = idItem;
+        //listItem.id = idItem;
         if (N != null) {
             listItem.innerHTML = '<div class="ButtonNote" id="' + idItem + '">\
                     <div class="textOnButton">\
-                        <div class="showDate">Date: ' + ShowData + '</div>\
-                        <div class="showAdressRoom">Address: ' + Adress + '</div>\
-                        <div class="showDoctor">Doctor: ' + Doctor + '</div>\
-                        <div class="showComment">Comment: ' + Comment + '</div>\
+                        <div class="showDate">' + words.other[lang][9] + ": " + ShowData + '</div>\
+                        <div class="showAdressRoom">'+ words.other[lang][10] + ": " + Adress + '</div>\
+                        <div class="showDoctor">'+ words.other[lang][12] + ": " + Doctor + '</div>\
+                        <div class="showComment">'+ words.other[lang][14] + ": " + Comment + '</div>\
                     </div>\
                     <div class="actionsButton"></div>\
                     <div class="editButton" data-edit="' + notifTime + '"></div>\
                     <div class="delCross" data-dely="' + notifTime + '"></div>\
                 </div>';
             return listItem.innerHTML;
-        //} else if(){
-        //    listItem.innerHTML = '<div id="NoNotes">' + words.other[lang][20] + '</div>';
         }
     },
     editNote: function (id) {
@@ -608,9 +614,9 @@ var DrawDay = {
         for (var j = 0; j < AllNotes.length; j++) {
             if (AllNotes[j].notificationTime == id) {
                 var DataSliced = new Date(AllNotes[j].time);
-                editDate.innerHTML = "Date: " + DrawDay.convertTime(DataSliced.getDate()) + "." + DrawDay.convertMonth(DataSliced.getMonth() + 1) + "." + DataSliced.getFullYear() + " - " + DrawDay.convertTime(DataSliced.getHours()) + ":" + DrawDay.convertTime(DataSliced.getMinutes());
-                editAdress.innerHTML = "Address: " + AllNotes[j].adress + " " + AllNotes[j].room;
-                editDoctor.innerHTML = "Doctor: " + AllNotes[j].doctor;
+                editDate.innerHTML = words.other[lang][9] + ": " + DrawDay.convertTime(DataSliced.getDate()) + "." + DrawDay.convertMonth(DataSliced.getMonth() + 1) + "." + DataSliced.getFullYear() + " - " + DrawDay.convertTime(DataSliced.getHours()) + ":" + DrawDay.convertTime(DataSliced.getMinutes());
+                editAdress.innerHTML = words.other[lang][10] + ": " + AllNotes[j].adress + " " + AllNotes[j].room;
+                editDoctor.innerHTML = words.other[lang][12] + ": " + AllNotes[j].doctor;
                 editComment.value = AllNotes[j].comment;
                 IdEditNote = j;
                 break;
@@ -622,10 +628,8 @@ var DrawDay = {
         for (var j = 0; j < AllNotes.length; j++) {
             if (AllNotes[j].notificationTime == id) {
                 AllNotes.splice(j, 1);
-                console.log(j);
             }
         }
-        console.log(AllNotes);
         localStorage.setItem("notes", JSON.stringify(AllNotes));
 
     }
@@ -726,7 +730,6 @@ var testPage = {
                                           <div class="fdtLines"></div>\
                                       </div>\
                                   </div>';
-
             //костылим таймаутом
             setTimeout(function () {
                 window.AnswerSwiper = new Swiper('.AnswerSwiper', {
@@ -800,9 +803,6 @@ var testPage = {
     },
 
     CountAnswers: function (chosenAnswer) {
-
-        console.log("chosenAnswers " + chosenAnswer);
-        console.log(words.testing[countAnswers].answer[lang]);
         if (chosenAnswer == words.testing[countAnswers].answer[lang][0]) {
             testPage.sumAllAnswers += 1;
         } else if (chosenAnswer == words.testing[countAnswers].answer[lang][1]) {
@@ -812,8 +812,6 @@ var testPage = {
         } else if (chosenAnswer == words.testing[countAnswers].answer[lang][3]) {
             testPage.sumAllAnswers += 14;
         }
-        console.log("sumAllAnswers " + testPage.sumAllAnswers);
-        console.log();
     },
     testResultInfo: function (resultCounted) {
         if (resultCounted <= 15) {
@@ -832,11 +830,38 @@ var testPage = {
     }
 }
 
+var ConfirmBlock = {
+    ConfirmTestOn: function(){
+        document.getElementById("ConfirmCards").style.visibility = "visible";
+        document.getElementById('ConfirmQ').innerHTML = words.other[lang][24];
+
+    },
+    ConfirmTestOff: function (){
+        document.getElementById("ConfirmCards").style.visibility = "hidden";
+        document.getElementById('ConfirmQ').innerHTML = "";
+    },
+    ConfirmClearTest: function (){
+        countAnswers = 0;
+        testPage.sumAllAnswers = 0;
+        document.getElementById("StartButtonText").innerHTML = words.other[lang][2];
+        document.getElementById("StartButtonText").style.backgroundImage = "none";
+        document.getElementById("ProgressBarContainer").style.display = "none";
+        document.getElementById("ProgressBarTxt").style.display = "none";
+        document.getElementById("AppLogo").style.display = "block";
+        document.getElementById("commentText").style.display = "block";
+        document.getElementById("result").style.display = "none";
+        localStorage.setItem('testResult', JSON.stringify(testPage.sumAllAnswers));
+        ConfirmBlock.ConfirmTestOff();
+        page.open("first");
+        console.log("CLEAR");
+    }
+
+}
+
 /*--------------------- END Test Page --------------------- */
 
 
 /*--------------------- BEGIN ProgressBar.JS  --------------------- */
-//
 var bar = new ProgressBar.Circle('#ProgressBarContainer', {
     color: '#aaa',
     // This has to be the same size as the maximum width to

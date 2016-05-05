@@ -1,6 +1,8 @@
 * {
     -webkit-backface-visibility: hidden; /*отключает отрисовку задней стороны div*/
     box-sizing: border-box; /* развмер DIV включает в себя padding и border */
+    margin: 0;
+    padding: 0;
 }
 
 html {
@@ -162,14 +164,15 @@ iframe {
     background-color: #FAFAFA;
 }
 
-.BackButton, #doneNote {
+.BackButton {
     top: 0em;
     height: 44px;
-    width: 4em;
+    width: 3em;
     background: url(img/backArrow.svg) no-repeat;
-    background-position: center;
-    background-size: 1.5em 1.5em;
+    background-position: left;
+    background-size: 1em 1.5em;
     position: absolute;
+    left: 0.5em;
 }
 
 .NavBarTitle {
@@ -258,29 +261,19 @@ iframe {
     background-size: 70% 70%;
 }
 
-/*#addNote.active {*/
-/*background: url(img/addNote_active.svg) no-repeat;*/
-/*background-position: center;*/
-/*background-size: contain;*/
-/*}*/
 #allNotes {
     background: url(img/allNotes_active.svg) no-repeat;
     background-position: center;
     background-size: 70% 70%;
 }
 
-/*#allNotes.active {*/
-/*background: url(img/allNotes_active.svg) no-repeat;*/
-/*background-position: center;*/
-/*background-size: contain;*/
-/*}*/
 #settings .content {
     background-color: #EFEFF4;
 }
 
 #settings .BackButton {
     background: url(img/SettingsbackArrow.svg) no-repeat;
-    background-position: center;
+    background-position: left;
     background-size: 1.5em 1.5em;
 }
 
@@ -316,7 +309,6 @@ iframe {
     width: 100%;
     height: 1em;
     -webkit-transform: translate(-50%, -50%);
-    /* color: #005D95; */
     font-size: 1em;
     font-family: "HelveticaNeue";
     text-align: center;
@@ -470,8 +462,9 @@ iframe {
     position: relative;
     height: 3em;
     width: 100%;
+    left: 0;
     line-height: 3em;
-    padding: 0 0.5em;
+    padding: 0 0.7em;
     border-top: 1px solid #EDEDED;
 
 }
@@ -607,7 +600,7 @@ iframe {
     border-bottom: 1px solid #EDEDED;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
-    height: 9.25em;
+    height: 9.75em;
 }
 
 #commentBlock .inputName {
@@ -621,10 +614,19 @@ iframe {
     float: left;
     word-wrap: break-word;
     height: 9em;
-    /*line-height: inherit;*/
+    margin-top: 0.5em;
     position: relative;
 }
-
+.lookDate {
+    top: 0.3em;
+    height: 44px;
+    width: 3em;
+    background: url(img/dateArrow.svg) no-repeat;
+    background-position: right;
+    background-size: 1.3em 1.5em;
+    position: absolute;
+    right: 0;
+}
 #commentName {
     width: 6.5em;
 }
@@ -634,7 +636,7 @@ iframe {
 }
 
 #input_date.input {
-    width: 14.5em;
+    width: 14em;
     text-align: right;
 }
 
@@ -677,7 +679,6 @@ iframe {
 .showDoctor {
     font-size: 15px;
     padding: 0.3em 0.5em;
-
 }
 
 .ButtonNote .showComment {
@@ -702,7 +703,7 @@ iframe {
 }
 
 #fifth #editComment {
-    height: 20em;
+    height: 13em;
     line-height: 1em;
 }
 
@@ -713,9 +714,17 @@ iframe {
     position: absolute;
     display: block;
     right: -11em;
-
 }
-
+.checkNote {
+    top: 0em;
+    height: 44px;
+    width: 3em;
+    background: url(img/check.svg) no-repeat;
+    background-position: center;
+    background-size: 1.3em 1.5em;
+    position: absolute;
+    right: 0;
+}
 .editButton {
     width: 5em;
     height: 8em;
@@ -846,7 +855,7 @@ svg path {
 #AnswerSwiper .fdt{
     height: 44px;
 }
-div span {
+.comText1 {
     padding: 0.5em 1em;
 }
 .showSmth {
@@ -859,14 +868,61 @@ div span {
 }
 #NoNotes {
     width: 100%;
-    height: 12em;
+    height: 6em;
     font-size: 1.5em;
     text-align: center;
     font-weight: lighter;
-    padding: 2em 3em;
+    padding: 2em 3em 0;
     color: #ccc;
 }
+#AddCircle {
+    display: block;
+    width: 100%;
+    height: 5em;
+    background: url(img/AddCircle.svg) no-repeat;
+    background-position: center;
+    background-size: contain;
+}
 
+.ConfirmCards {
+    display: block;
+    visibility: hidden;
+}
+.ConfirmWindow {
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    left: 50%;
+    width: 13em;
+    height: 8em;
+    -webkit-transform: translate(-50%, -50%);
+    background-color: #fff;
+    background-position: center;
+    border: 1px solid #fff;
+    border-radius: 10px;
+
+}
+.ConfirmMessage {
+    padding: 1em 1em;
+    text-align: center;
+    line-height: 1.2em;
+    border-bottom: 1px #C8C7CC solid;
+}
+.ConfirmYes, .ConfirmNo {
+    text-align: center;
+    line-height: 2em;
+}
+.border.shrink {
+    background-color: #C8C7CC;
+    width: 1px;
+}
+.confirm_text{
+    padding-top: 1em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    text-indent: 1em;
+    color: #191919;
+}
 /*iFone 6 */
 @media only screen and (min-width: 340px) {
     .AppLogo {

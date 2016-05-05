@@ -1,205 +1,275 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">  <!-- запрещает user-scale -->
-        <meta name="format-detection" content="telephone=no"> <!-- запрет на использование цифр к набору как номер телефона -->
-        <link rel="stylesheet" type="text/css" href="css/flex.css">
-        <link rel="stylesheet" type="text/css" href="css/animationX.css">
-        <link rel="stylesheet" type="text/css" href="css/animationY.css">
-        <link rel="stylesheet" type="text/css" href="css/swiper.min.css">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-        <script src="js/tap.mod.2.6.js"></script>
-        <script src="js/swiper.min.js"></script>
-        <script src="js/fDates.js"></script>
-        <script src="js/fdt.js"></script>
-        <script src="js/webactivity.js"></script>
-        <script src="js/progressbar.min.js"></script>
-        <script src="js/myLib.js"></script>
-        <script src="js/content.js"></script>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!-- запрещает user-scale -->
+    <meta name="format-detection" content="telephone=no">
+    <!-- запрет на использование цифр к набору как номер телефона -->
+    <link rel="stylesheet" type="text/css" href="css/flex.css">
+    <link rel="stylesheet" type="text/css" href="css/animationX.css">
+    <link rel="stylesheet" type="text/css" href="css/animationY.css">
+    <link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/tap.mod.2.6.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <script src="js/fDates.js"></script>
+    <script src="js/fdt.js"></script>
+    <script src="js/webactivity.js"></script>
+    <script src="js/progressbar.min.js"></script>
+    <script src="js/myLib.js"></script>
+    <script src="js/content.js"></script>
 
-    </head>
-    <body>
-        <div id="alertActivity" class="alertActivity col">
-            <div class="alertBackground"></div>
-            <div class="alertwindow col">
-                <div class="alertMessage flex col justify-content-center" id="alertMessage"></div>
-                <div class="alertYes shrink" id="alertYes">OK</div>
+</head>
+<body>
+<div id="alertActivity" class="alertActivity col">
+    <div class="alertBackground"></div>
+    <div class="alertwindow col">
+        <div class="alertMessage flex col justify-content-center" id="alertMessage"></div>
+        <div class="alertYes shrink" id="alertYes">OK</div>
+    </div>
+</div>
+<div id="ConfirmCards" class="ConfirmCards col">
+    <div class="alertBackground"></div>
+    <div class="ConfirmWindow col">
+        <div class="ConfirmMessage flex col justify-content-center" id="ConfirmQ">Question Place</div>
+        <div class="shrink row">
+            <div class="ConfirmYes flex" id="ConfirmYes"><script>document.write(words.other[lang][25]);</script></div>
+            <div class="border shrink"></div>
+            <div class="ConfirmNo flex" id="ConfirmNo"><script>document.write(words.other[lang][26]);</script></div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="settings" class="page col" data-n="0">
+    <div class="NavBar shrink">
+        <div class="NavBarTitle">
+            <script>document.write(words.other[lang][3]);</script>
+        </div>
+        <div class="BackButton" id="SettingsToFirst"></div>
+    </div>
+    <div class="content flex col">
+        <div class="IconHolder">
+            <div class="settingsIcon"></div>
+        </div>
+        <div class="AppHeader">
+            <script>document.write(words.other[lang][0]);</script>
+        </div>
+        <div class="app2header">
+            <script>document.write(words.other[lang][4]);</script>
+        </div>
+        <div class="settings_block">
+            <div class="Set_control">
+                <div class="notif_control"></div>
+                <div class="txt">
+                    <script>document.write(words.other[lang][5]);</script>
+                </div>
+                <div id="notifSW" class="switcher">
+                    <div class="circle"></div>
+                </div>
+            </div>
+            <div class="Set_control">
+                <div class="snd_control"></div>
+                <div class="txt">
+                    <script>document.write(words.other[lang][6]);</script>
+                </div>
+                <div id="soundSW" class="switcher">
+                    <div class="circle"></div>
+                </div>
             </div>
         </div>
+    </div>
+</div>
 
 
-
-        <div id="settings" class="page col" data-n="0">
-            <div class="NavBar shrink">
-                <div class="NavBarTitle">
-                    <script>document.write(words.other[lang][3]);</script>
-                </div>
-                <div class="BackButton" id="SettingsToFirst"></div>
+<div id="first" class="page col hold" data-n="1" style="visibility: visible">
+    <div class="NavBar shrink">
+        <div class="NavBarTitle">
+            <script>document.write(words.other[lang][0]);</script>
+        </div>
+        <div class="SettingsNavButton" id="goSettings"></div>
+    </div>
+    <div class="content flex col">
+        <div id="AppLogo" class="AppLogo"></div>
+        <div id="ProgressBarContainer"></div>
+        <div id="ProgressBarTxt"></div>
+        <div id="result"></div>
+        <div class="commentText" id="commentText">
+            <script>document.write(words.other[lang][1]);</script>
+        </div>
+        <div class="BigButton" id="StartButton">
+            <div class="StartButtonText" id="StartButtonText">
+                <script>document.write(words.other[lang][2]);</script>
             </div>
-            <div class="content flex col">
-                <div class="IconHolder">
-                    <div class="settingsIcon"></div>
-                </div>
-                <div class="AppHeader"><script>document.write(words.other[lang][0]);</script></div>
-                <div class="app2header"><script>document.write(words.other[lang][4]);</script></div>
-                <div class="settings_block">
-                    <div class="Set_control">
-                        <div class="notif_control"></div>
-                        <div class="txt"><script>document.write(words.other[lang][5]);</script></div>
-                        <div id="notifSW" class="switcher">
-                            <div class="circle"></div>
-                        </div>
+        </div>
+    </div>
+    <div class="tapbar row justify-content-space-around">
+        <div class="tabButton" id="addNote"></div>
+        <div class="tabButton" id="allNotes"></div>
+    </div>
+</div>
+
+
+<!----------------------- Second page | Test ----------------------->
+<div id="second" class="page col" data-n="2">
+    <div class="NavBar shrink">
+        <div class="NavBarTitle">
+            <script>document.write(words.other[lang][7]);</script>
+        </div>
+        <div class="BackButton" id="endTest"></div>
+    </div>
+    <div class="content flex col">
+        <div id="testblock">
+
+        </div>
+        <div class="BigButton">
+            <div class="check" id="checkAnswer"></div>
+        </div>
+
+    </div>
+</div>
+
+
+<!----------------------- Third page | New Note ----------------------->
+<div id="third" class="page col" data-n="3">
+    <div class="NavBar shrink">
+        <div class="NavBarTitle">
+            <script>document.write(words.other[lang][8]);</script>
+        </div>
+        <div class="BackButton" id="BackFromNote"></div>
+        <div class="checkNote" id="doneNote"></div>
+    </div>
+    <div class="content flex col" id="inputStrings">
+        <div class="inputLine" id="choose_date">
+            <div class="inputName">
+                <script>document.write(words.other[lang][9]);</script>
+            </div>
+            <div class="input" id="input_date">&nbsp;
+                <div class="lookDate"></div></div>
+        </div>
+        <div class="fdt-container-mine">
+            <div class="fdt" id="barrel_date"></div>
+        </div>
+        <div class="inputLine">
+            <input class="input" maxlength="30" id="input_adress" type="text">
+        </div>
+        <div class="inputLine">
+            <input class="input" maxlength="20" id="input_cabinet" type="text">
+        </div>
+        <div class="inputLine">
+            <input class="input" maxlength="20" id="input_doctor" type="text">
+        </div>
+        <div class="inputLine" id="chooseTimeNotification">
+            <div class="inputName">
+                <script>document.write(words.other[lang][13]);</script>
+            </div>
+            <div class="input" maxlength="15" id="input_reminder">&nbsp;</div>
+        </div>
+        <div class="notif-container-mine">
+            <div class="swiper-container notifTimer" id="notifTimer">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <script>document.write(words.swiperwords[lang][0]);</script>
                     </div>
-                    <div class="Set_control">
-                        <div class="snd_control"></div>
-                        <div class="txt"><script>document.write(words.other[lang][6]);</script></div>
-                        <div id="soundSW" class="switcher">
-                            <div class="circle"></div>
-                        </div>
+                    <div class="swiper-slide">
+                        <script>document.write(words.swiperwords[lang][1]);</script>
+                    </div>
+                    <div class="swiper-slide">
+                        <script>document.write(words.swiperwords[lang][2]);</script>
+                    </div>
+                    <div class="swiper-slide">
+                        <script>document.write(words.swiperwords[lang][3]);</script>
+                    </div>
+                    <div class="swiper-slide">
+                        <script>document.write(words.swiperwords[lang][4]);</script>
+                    </div>
+                    <div class="swiper-slide">
+                        <script>document.write(words.swiperwords[lang][5]);</script>
+                    </div>
+                    <div class="swiper-slide">
+                        <script>document.write(words.swiperwords[lang][6]);</script>
+                    </div>
+                    <div class="swiper-slide">
+                        <script>document.write(words.swiperwords[lang][7]);</script>
+                    </div>
+                    <div class="swiper-slide">
+                        <script>document.write(words.swiperwords[lang][8]);</script>
+                    </div>
+                    <div class="swiper-slide">
+                        <script>document.write(words.swiperwords[lang][9]);</script>
+                    </div>
+                    <div class="swiper-slide">
+                        <script>document.write(words.swiperwords[lang][10]);</script>
+                    </div>
+                    <div class="swiper-slide">
+                        <script>document.write(words.swiperwords[lang][11]);</script>
                     </div>
                 </div>
+                <div class="fdtLines"></div>
             </div>
         </div>
-
-
-
-        <div id="first" class="page col hold" data-n="1" style="visibility: visible">
-            <div class="NavBar shrink">
-                <div class="NavBarTitle"><script>document.write(words.other[lang][0]);</script></div>
-                <div class="SettingsNavButton" id="goSettings"></div>
-            </div>
-            <div class="content flex col">
-                <div id="AppLogo" class="AppLogo"></div>
-                <div id="ProgressBarContainer"></div>
-                <div id="ProgressBarTxt"></div>
-                <div id="result"></div>
-                <div class="commentText" id="commentText"><script>document.write(words.other[lang][1]);</script></div>
-                <div class="BigButton" id="StartButton">
-                    <div class="StartButtonText" id="StartButtonText"><script>document.write(words.other[lang][2]);</script></div>
-                </div>
-            </div>
-            <div class="tapbar row justify-content-space-around">
-                <div class="tabButton" id="addNote"></div>
-                <div class="tabButton" id="allNotes"></div>
-            </div>
+        <div class="inputLine" id="commentBlock">
+            <textarea class="input" maxlength="200" id="input_comment" wrap="soft" type="text"></textarea>
         </div>
+    </div>
+</div>
 
 
-        <!----------------------- Second page | Test ----------------------->
-        <div id="second" class="page col" data-n="2">
-            <div class="NavBar shrink">
-                <div class="NavBarTitle"><script>document.write(words.other[lang][7]);</script></div>
-                <div class="BackButton" id="endTest"></div>
-            </div>
-            <div class="content flex col">
-                <div id="testblock">
+<!----------------------- Fourth page | List Of Notes ----------------------->
 
-                </div>
-                <div class="BigButton">
-                    <div class="check" id="checkAnswer"></div>
-                </div>
+<div id="fourth" class="page col" data-n="4">
+    <div class="NavBar shrink">
 
-            </div>
+        <div class="NavBarTitle">
+            <script>document.write(words.other[lang][16]);</script>
         </div>
+        <div class="BackButton" id="fromFourthToFirst"></div>
+    </div>
+    <div class="content flex col">
+        <div id="NoNotes">
+            <script>
+                document.write(words.other[lang][21]);
+            </script>
 
-
-        <!----------------------- Third page | New Note ----------------------->
-        <div id="third" class="page col" data-n="3">
-            <div class="NavBar shrink">
-                <div class="NavBarTitle"><script>document.write(words.other[lang][8]);</script></div>
-                <div class="BackButton" id="doneNote"></div>
-            </div>
-            <div class="content flex col" id="inputStrings">
-                <div class="inputLine"  id="choose_date">
-                    <div class="inputName"><script>document.write(words.other[lang][9]);</script></div>
-                    <div class="input" id="input_date">&nbsp;</div>
-                </div>
-                <div class="fdt-container-mine">
-                    <div class="fdt" id="barrel_date"></div>
-                </div>
-                <div class="inputLine">
-                    <input class="input" maxlength="30" id="input_adress" type="text">
-                </div>
-                <div class="inputLine">
-                    <input class="input" maxlength="20" id="input_cabinet" type="text">
-                </div>
-                <div class="inputLine">
-                    <input class="input" maxlength="20" id="input_doctor" type="text">
-                </div>
-                <div class="inputLine" id="chooseTimeNotification">
-                    <div class="inputName"><script>document.write(words.other[lang][13]);</script></div>
-                    <div class="input" maxlength="15" id="input_reminder">&nbsp;</div>
-                </div>
-                <div class="notif-container-mine">
-                    <div class="swiper-container notifTimer" id="notifTimer">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide"><script>document.write(words.swiperwords[lang][0]);</script></div>
-                            <div class="swiper-slide"><script>document.write(words.swiperwords[lang][1]);</script></div>
-                            <div class="swiper-slide"><script>document.write(words.swiperwords[lang][2]);</script></div>
-                            <div class="swiper-slide"><script>document.write(words.swiperwords[lang][3]);</script></div>
-                            <div class="swiper-slide"><script>document.write(words.swiperwords[lang][4]);</script></div>
-                            <div class="swiper-slide"><script>document.write(words.swiperwords[lang][5]);</script></div>
-                            <div class="swiper-slide"><script>document.write(words.swiperwords[lang][6]);</script></div>
-                            <div class="swiper-slide"><script>document.write(words.swiperwords[lang][7]);</script></div>
-                            <div class="swiper-slide"><script>document.write(words.swiperwords[lang][8]);</script></div>
-                            <div class="swiper-slide"><script>document.write(words.swiperwords[lang][9]);</script></div>
-                            <div class="swiper-slide"><script>document.write(words.swiperwords[lang][10]);</script></div>
-                            <div class="swiper-slide"><script>document.write(words.swiperwords[lang][11]);</script></div>
-                        </div>
-                        <div class="fdtLines"></div>
-                    </div>
-                </div>
-                <div class="inputLine" id="commentBlock">
-                    <textarea class="input" maxlength="200" id="input_comment" wrap="soft" type="text"></textarea>
-                </div>
-            </div>
         </div>
+        <div class="AddCircle" id="AddCircle"></div>
+        <div id="DayTask" class="flex scroll">
 
-
-
-
-        <!----------------------- Fourth page | List Of Notes ----------------------->
-
-        <div id="fourth" class="page col" data-n="4">
-            <div class="NavBar shrink">
-
-                <div class="NavBarTitle"><script>document.write(words.other[lang][16]);</script></div>
-                <div class="BackButton" id="fromFourthToFirst"></div>
-            </div>
-            <div class="content flex col">
-                <div id="DayTask" class="flex scroll">
-                    <div id="NoNotes">
-                        <!--<script>document.write(words.other[lang][20]);</script>-->
-                    </div>
-                    <!-- adding DOM element from JS -->
-                    </div>
-                </div>
-            </div>
         </div>
+    </div>
+</div>
+</div>
 
 
-        <!----------------------- Fifth page | Edit Notes ----------------------->
+<!----------------------- Fifth page | Edit Notes ----------------------->
 
-        <div id="fifth" class="page col" data-n="5">
-            <div class="NavBar shrink">
+<div id="fifth" class="page col" data-n="5">
+    <div class="NavBar shrink">
 
-                <div class="NavBarTitle"><script>document.write(words.other[lang][16]);</script></div>
-                <div class="BackButton" id="editSave"></div>
-            </div>
-            <div class="content flex col">
-                <div id="" class="flex scroll">
-                    <div class="showSmth" id="editDate"></div>
-                    <div class="showSmth" id="editAdress"></div>
-                    <div class="showSmth" id="editDoctor"></div>
-                    <div><span>Comment: </span><textarea class="showSmth input" maxlength="150" wrap="soft" type="text" id="editComment"></textarea></div>
-
-                </div>
-            </div>
+        <div class="NavBarTitle">
+            <script>document.write(words.other[lang][16]);</script>
         </div>
-        </div>
-        
+        <div class="BackButton" id="editBack"></div>
+        <div class="checkNote" id="editDone"></div>
+    </div>
+    <div class="content flex col">
+        <div id="" class="flex scroll">
+            <div class="showSmth" id="editDate"></div>
+            <div class="showSmth" id="editAdress"></div>
+            <div class="showSmth" id="editDoctor"></div>
+            <div сlass="comText">
+                <div class="comText1"><script>document.write(words.other[lang][14] + ":");</script></div>
+                <textarea class="showSmth input" maxlength="150" wrap="soft" type="text" id="editComment"></textarea>
+            </div>
 
-    </body>
-    <script src="js/main.js"></script>
+        </div>
+    </div>
+</div>
+</div>
+
+
+</body>
+<script src="js/main.js"></script>
 </html>

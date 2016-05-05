@@ -45,24 +45,24 @@ function duckTape(){
 }
 //вызывает нативный confirm
 function $confirm (text) {
-  var res = false;
-  if ($uaContains('iPhone') || $uaContains('iPad')) {
-    var iframe = document.createElement('iframe');
-    iframe.setAttribute('src', 'data:text/plain,');
-    document.body.appendChild(iframe);
+    var res = false;
+    if ($uaContains('iPhone') || $uaContains('iPad')) {
+        var iframe = document.createElement('iframe');
+        iframe.setAttribute('src', 'data:text/plain,');
+        document.body.appendChild(iframe);
 
-    res = window.frames[0].window.confirm(text);
-    iframe.parentNode.removeChild(iframe);
-  } else {
-    var iframe = document.createElement('iframe');
-    iframe.setAttribute('src', '');
-    document.body.appendChild(iframe);
+        res = window.frames[0].window.confirm(text);
+        iframe.parentNode.removeChild(iframe);
+    } else {
+        var iframe = document.createElement('iframe');
+        iframe.setAttribute('src', '');
+        document.body.appendChild(iframe);
 
-    res = window.frames[0].window.confirm(text);
-    iframe.parentNode.removeChild(iframe);
-  }
-  duckTape();
-  return res;
+        res = window.frames[0].window.confirm(text);
+        iframe.parentNode.removeChild(iframe);
+    }
+    duckTape();
+    return res;
 }
 //вызывает нативный alert
 function $alert (text) {
@@ -155,7 +155,7 @@ function fillContent(el,str,img){
 	(условие) ? возвращает если правда : возвращает если ложь;
 */
 
-/*
+
 //определение языка
 var lang = navigator.language.substr(0,2);
 var flag = 0;
@@ -163,8 +163,7 @@ for(var keys in translate.langs){
 	if(keys==lang){
 		flag++;
 	}
-} 
+}
 if(flag==0){
 	lang = "en";
 }
-*/
